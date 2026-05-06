@@ -1,6 +1,6 @@
 #!/bin/sh
 
-PCAP_FILE="/tmp/userdata/capture.pcap"
+PCAP_FILE="/tmp/userdata/capture-VNPT04466810.pcap"
 DURATION=60
 
 # Telegram config
