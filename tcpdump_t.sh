@@ -1,7 +1,7 @@
 #!/bin/sh
 
 PCAP_FILE="/tmp/userdata/capture-VNPT04466810.pcap"
-DURATION=60
+DURATION=300
 
 # Telegram config
 BOT_TOKEN="8237132642:AAHZxUKpBwSrHO3NRaNfHOkYfg7MEbHcFro"
