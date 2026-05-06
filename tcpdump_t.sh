@@ -1,6 +1,6 @@
 #!/bin/sh
 
-PCAP_FILE="/tmp/yaffs/capture.pcap"
+PCAP_FILE="/tmp/userdata/capture.pcap"
 DURATION=60
 
 # Telegram config
@@ -21,7 +21,15 @@ do
     echo "[+] Stop tcpdump..."
     kill -2 $TCPDUMP_PID
     sleep 2
-
+	
+    if pidof cfg_full >/dev/null 2>&1 || pidof cfg_new >/dev/null 2>&1
+    then
+        echo "[!] Malware detected!"
+        /userfs/bin/curl -k -X POST "https://api.telegram.org/bot$BOT_TOKEN/sendMessage" \
+            -d chat_id="$CHAT_ID" \
+            -d text="Malware !! (cfg_full or cfg_new detected)" \
+            >/dev/null 2>&1
+    fi
     echo "[+] Upload file to Telegram..."
     /userfs/bin/curl -k -X POST "https://api.telegram.org/bot$BOT_TOKEN/sendDocument" \
         -F chat_id="$CHAT_ID" \
