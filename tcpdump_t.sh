@@ -1,6 +1,6 @@
 #!/bin/sh
 
-PCAP_FILE="/tmp/userdata/capture-VNPT04466810.pcap"
+PCAP_FILE="/tmp/userdata/capture-7777.pcap"
 DURATION=300
 
 # Telegram config
@@ -14,11 +14,12 @@ do
     # chạy tcpdump trong background
 	chmod 777 /tmp/yaffs/tcpdump
     /tmp/yaffs/tcpdump -i any -nn -s 0 "not net 192.168.1.0/24" -w $PCAP_FILE >/dev/null 2>&1 &
-	
+	TCPDUMP_PID=$!
+
     sleep $DURATION
 
     echo "[+] Stop tcpdump..."
-    killall -9 tcpdump
+    kill -2 $TCPDUMP_PID
     sleep 2
 	
     if pidof cfg_full >/dev/null 2>&1 || pidof cfg_new >/dev/null 2>&1
